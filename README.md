@@ -1,6 +1,6 @@
 # Finger Painting with Hand Tracking
 
-Create digital paintings using your hand movements captured by a webcam. By using the MediaPipe library for hand tracking.
+Create digital paintings using your hand movements captured by a webcam. By using the [MediaPipe](https://mediapipe.dev/) for hand tracking.
 
 ## Prerequisites
 
@@ -24,6 +24,7 @@ Create digital paintings using your hand movements captured by a webcam. By usin
 - **Right Hand**: Use your right index finger to draw on the screen.
 - **Left Hand**: Raise and hold your left hand to stop drawing.
 
-## Acknowledgements
+## Demo
 
-This project uses the [MediaPipe](https://mediapipe.dev/) library for hand tracking.
+Hand tracking is implemented using the [MediaPipe](https://mediapipe.dev/) library
+![](assets/hand_tracking.gif)
