@@ -11,6 +11,7 @@ hands = mp_hands.Hands(
 
 # Drawing variables
 drawing_color = (0, 255, 0)
+landmark_color = (0, 0, 255)
 line_thickness = 10
 painting_enabled = True
 
@@ -28,7 +29,7 @@ canvas = np.zeros((frame_height, frame_width, 3), dtype=np.uint8)
 prev_x, prev_y = 0, 0
 
 print(
-    f"Controls:\n\t- Right Hand: Use your right index finger to draw on the screen.\n\t- Left Hand: Raise and hold your left hand to stop drawing.\n\t- esc: Toggle painting mode\n\t- q: Quit\n"
+    f"Controls:\n\t- Right Hand: Use your right index finger to draw on the screen.\n\t- Left Hand: Raise and hold your left hand to pause drawing.\n\t- space bar: Toggle painting mode\n\t- q: Quit\n"
 )
 
 while cap.isOpened():
@@ -52,6 +53,13 @@ while cap.isOpened():
             drawing_color = (0, 255, 0, 100)  # opaque
 
             hand_landmarks = results.multi_hand_landmarks[0]
+
+            # Draw red circles on all landmarks
+            for landmark in hand_landmarks.landmark:
+                x, y = int(landmark.x * frame_width), int(landmark.y * frame_height)
+                cv2.circle(frame, (x, y), 5, landmark_color, -1)
+
+            # Get index finger tip landmark
             index_finger_tip = hand_landmarks.landmark[8]
 
             x, y = int(index_finger_tip.x * frame_width), int(
@@ -82,7 +90,8 @@ while cap.isOpened():
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
-    elif key == 27:
+    # Toggle paint mode with spacebar
+    elif key == 32:
         painting_enabled = not painting_enabled
 
 # Cleanup
