@@ -27,4 +27,5 @@ Create digital paintings using your hand movements captured by a webcam. By usin
 ## Demo
 
 Hand tracking is implemented using the [MediaPipe](https://mediapipe.dev/) library
+
 ![](assets/hand_tracking.gif)
