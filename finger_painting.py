@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import mediapipe as mp
-import time
 
 # Initialize a hand tracking model using Mediapipe
 # https://developers.google.com/mediapipe/solutions/vision/hand_landmarker/python
@@ -13,6 +12,7 @@ hands = mp_hands.Hands(
 # Drawing variables
 drawing_color = (0, 255, 0)
 line_thickness = 10
+painting_enabled = True
 
 # Yse OpenCV for video
 cap = cv2.VideoCapture(0)
@@ -27,6 +27,10 @@ canvas = np.zeros((frame_height, frame_width, 3), dtype=np.uint8)
 # Previous point for smoothing
 prev_x, prev_y = 0, 0
 
+print(
+    f"Controls:\n\t- Right Hand: Use your right index finger to draw on the screen.\n\t- Left Hand: Raise and hold your left hand to stop drawing.\n\t- esc: Toggle painting mode\n\t- q: Quit\n"
+)
+
 while cap.isOpened():
     ret, frame = cap.read()
 
@@ -40,7 +44,7 @@ while cap.isOpened():
     results = hands.process(rgb_frame)
 
     # If a hand is detected
-    if results.multi_hand_landmarks:
+    if results.multi_hand_landmarks and painting_enabled:
         if results.multi_handedness[0].classification[0].label == "Left":
             drawing_color = (0, 255, 0, 0)  # transparent
             prev_x, prev_y = 0, 0  # Reset
@@ -64,7 +68,7 @@ while cap.isOpened():
 
                 cv2.circle(
                     canvas, (cur_x, cur_y), line_thickness, drawing_color, -1
-                )  # -1 means filled circle
+                )  # -1 is filled circle
 
             prev_x, prev_y = x, y
 
@@ -75,8 +79,11 @@ while cap.isOpened():
     cv2.imshow("Finger Painting", result_frame)
 
     # Exit if 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord("q"):
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("q"):
         break
+    elif key == 27:
+        painting_enabled = not painting_enabled
 
 # Cleanup
 cap.release()
