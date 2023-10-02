@@ -21,8 +21,10 @@ Create digital paintings using your hand movements captured by a webcam. By usin
 
 ## Controls
 
-- **Right Hand**: Use your right index finger to draw on the screen.
-- **Left Hand**: Raise and hold your left hand to stop drawing.
+- **Right hand**: Use your right index finger to draw on the screen.
+- **Left hand**: Raise and hold your left hand to stop drawing.
+- **Space bar**: Toggle painting mode
+- **'q' key**: Quit
 
 ## Demo
 
