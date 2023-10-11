@@ -28,6 +28,8 @@ Create digital paintings using your hand movements captured by a webcam. By usin
 
 ## Demo
 
+![finger_painting_small_file](https://github.com/sshovkov/finger-painting-hand-recognition-model/assets/43308603/be6a14b5-6235-4279-beba-ed879c70ec7a)
+
 Hand tracking is implemented using the [MediaPipe](https://mediapipe.dev/) library
 
 ![](assets/hand_tracking.gif)
